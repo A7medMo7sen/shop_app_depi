@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.person_outlined, color: Colors.white),
             ),
           ),
+          SizedBox(width: 15),
         ],
       ),
       body: SafeArea(
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.all(18),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusGeometry.circular(12),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       minimumSize: Size(100, 56),
                       backgroundColor: _blue,
@@ -91,7 +92,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
+              SizedBox(height: 5,),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Showing all ${items.length} items'),
                   Text('Catalog Active', style: TextStyle(color: _blue)),
@@ -129,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
               Expanded(
                 child: GridView.builder(
                   itemCount: items.length,
@@ -139,6 +142,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   itemBuilder: (context, index) {
                     final item = items[index];
+                    final price = item['price'] as int;
+                    final sale = (item['sale']  as int?) ?? 0;
                     return Card(
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
@@ -168,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                                     padding: EdgeInsets.all(3),
                                     decoration: BoxDecoration(
                                       borderRadius:
-                                          BorderRadiusGeometry.circular(5),
+                                          BorderRadius.circular(5),
                                       color: const Color.fromRGBO(
                                         193,
                                         192,
@@ -202,8 +207,7 @@ class _HomePageState extends State<HomePage> {
                                 fontWeight: FontWeight(600),
                               ),
                             ),
-                            Text(
-                              '\$${(item['price'] as int).toString()}',
+                            Text('\$${price * (1 - sale  / 100)}',
                               style: TextStyle(
                                 color: _blue,
                                 fontSize: 20,
@@ -215,7 +219,8 @@ class _HomePageState extends State<HomePage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => DetailsPage(item: item,),
+                                    builder: (context) =>
+                                        DetailsPage(item: item),
                                   ),
                                 );
                               },
@@ -230,7 +235,7 @@ class _HomePageState extends State<HomePage> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: _blue,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadiusGeometry.circular(
+                                  borderRadius: BorderRadius.circular(
                                     8,
                                   ),
                                 ),
