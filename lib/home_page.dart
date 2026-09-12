@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'add_product_page.dart';
 import 'details_page.dart';
 import 'data.dart';
 
@@ -92,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              SizedBox(height: 5,),
+              SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -143,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (context, index) {
                     final item = items[index];
                     final price = item['price'] as int;
-                    final sale = (item['sale']  as int?) ?? 0;
+                    final sale = (item['sale'] as int?) ?? 0;
                     return Card(
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
@@ -172,8 +173,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Container(
                                     padding: EdgeInsets.all(3),
                                     decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(5),
                                       color: const Color.fromRGBO(
                                         193,
                                         192,
@@ -207,7 +207,8 @@ class _HomePageState extends State<HomePage> {
                                 fontWeight: FontWeight(600),
                               ),
                             ),
-                            Text('\$${price * (1 - sale  / 100)}',
+                            Text(
+                              '\$${price * (1 - sale / 100)}',
                               style: TextStyle(
                                 color: _blue,
                                 fontSize: 20,
@@ -235,9 +236,7 @@ class _HomePageState extends State<HomePage> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: _blue,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    8,
-                                  ),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                                 minimumSize: Size(double.infinity, 40),
                               ),
@@ -252,6 +251,16 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddProductPage()),
+          );
+        },
+        backgroundColor: const Color.fromRGBO(31, 73, 255, 1.0),
+        child: Icon(Icons.add, color: Colors.white,size: 30,),
       ),
     );
   }
